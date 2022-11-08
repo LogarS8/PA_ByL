@@ -9,7 +9,7 @@ CREATE TABLE `usuarios` (
   `nombreUsu` varchar(45) NOT NULL,
   `apellidosUsu` varchar(45) NOT NULL,
   `correoUsu` varchar(45) NOT NULL,
-  `contraseñaUsu` varchar(45) NOT NULL,
+  `contrasenaUsu` varchar(45) NOT NULL,
   `imgurlUsu` longtext NOT NULL,
   `rolUsu` varchar(45) NOT NULL,
   PRIMARY KEY (`idUsu`)

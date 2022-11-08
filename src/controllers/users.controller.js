@@ -14,16 +14,19 @@ export const createUser = async (req, res) => {
     res.status(400).send("Las contraseñas no coinciden");
   }
 
-  const [rows] = await pool.query("SELECT * FROM usuarios WHERE correoUsu = ?", [email]);
-  if(rows.length > 0) {
-    req.session.data = {message: "El correo ya está registrado"};
-    req.session.save((err)=>{
-      if(!err){
+  const [rows] = await pool.query(
+    "SELECT * FROM usuarios WHERE correoUsu = ?",
+    [email]
+  );
+  if (rows.length > 0) {
+    req.session.data = { message: "El correo ya está registrado" };
+    req.session.save((err) => {
+      if (!err) {
         res.redirect("/login");
-      }else{
+      } else {
         res.status(500).send("Error al guardar la sesión");
       }
-    })
+    });
     return;
   }
 
@@ -49,7 +52,10 @@ export const loginUser = async (req, res) => {
     res.status(400).send("Todos los campos son obligatorios");
   }
 
-  const [rows] = await pool.query("SELECT * FROM usuarios WHERE correoUsu = ? and contrasenaUsu = ?;", [correo, contraseña]);
+  const [rows] = await pool.query(
+    "SELECT * FROM usuarios WHERE correoUsu = ? and contrasenaUsu = ?;",
+    [correo, contraseña]
+  );
 
   if (rows.length > 0) {
     req.session.user = rows[0];
@@ -61,7 +67,7 @@ export const loginUser = async (req, res) => {
       }
     });
   } else {
-    req.session.data = { message: "Correo o contraseña incorrectos"};
+    req.session.data = { message: "Correo o contraseña incorrectos" };
     req.session.save((err) => {
       if (!err) {
         res.redirect("/login");
