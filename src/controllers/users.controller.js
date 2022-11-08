@@ -28,7 +28,7 @@ export const createUser = async (req, res) => {
   }
 
   const result = await pool.query(
-    "INSERT INTO usuarios(nombreUsu, apellidosUsu, correoUsu, contraseñaUsu, imgurlUsu, rolUsu) values (?, ?, ?, ?, ?, ?)",
+    "INSERT INTO usuarios(nombreUsu, apellidosUsu, correoUsu, contrasenaUsu, imgurlUsu, rolUsu) values (?, ?, ?, ?, ?, ?);",
     [firstname, lastname, email, password, req.file.filename, "alumno"]
   );
 
@@ -49,7 +49,7 @@ export const loginUser = async (req, res) => {
     res.status(400).send("Todos los campos son obligatorios");
   }
 
-  const [rows] = await pool.query("SELECT * FROM usuarios WHERE correoUsu = ? and contraseñaUsu = ?;", [correo, contraseña]);
+  const [rows] = await pool.query("SELECT * FROM usuarios WHERE correoUsu = ? and contrasenaUsu = ?;", [correo, contraseña]);
 
   if (rows.length > 0) {
     req.session.user = rows[0];
